@@ -1,9 +1,11 @@
 import json
 
 csvFileName = "behaviourData.csv"
-jsonFileName = "behaviourData.json"
+jsonDataFileName = "behaviourData.json"
+jsonTransitionFileName = "transitionData.json"
 
-jsonList = []
+jsonDataList = []
+jsonTransitionList = []
 with open(csvFileName, "r") as f:
     # Read lines in as a generator to conserve space with massive files
     fileLines = f.readlines()
@@ -15,7 +17,8 @@ with open(csvFileName, "r") as f:
         items = line.split(",")
 
         # Ensuring that we're dealing with the correct kind of data
-        if len(items) == 68:
+        # "anon" is the name given when collecting data and the script isn't running
+        if len(items) == 68 and items[-1].strip() not in ["anon\n", "anon"]:
 
             # Seperating temperatures from the metadata
             temps = items[:64]
@@ -34,11 +37,19 @@ with open(csvFileName, "r") as f:
                          "name": metadata[3],
                          "time": float(metadata[1])}
             
-            jsonList.append(entryDict)
+            # Saving the transition data separately.
+            if entryDict["state"] == "transition":
+                jsonTransitionList.append(entryDict)
+            else:
+                jsonDataList.append(entryDict)
 
         else:
             print("yeanahrip")
 
+# Saving the main data file
+with open(jsonDataFileName, 'w') as dataOutFile:
+    json.dump(jsonDataList, dataOutFile)
 
-with open(jsonFileName, 'w') as outfile:
-    json.dump(jsonList, outfile)
+# Saving the transition data file
+with open(jsonTransitionFileName, 'w') as transitionOutFile:
+    json.dump(jsonTransitionList, transitionOutFile)

@@ -167,7 +167,7 @@ class BathroomConfig(Config):
         # would be three channels.
     INPUT_FRAME_HEIGHT   = 8  ## (int)
     INPUT_FRAME_WIDTH    = 8  ## (int)
-    CLASS_COUNT          = 2  ## (int)
+    CLASS_COUNT          = 31  ## (int)
         # The number of "states".
 
     # Sequence Params
@@ -285,49 +285,9 @@ if __name__ == '__main__':
         # Load file
         raw_data = json.load(json_file)
 
-    # Loop through entries, keeping non-repeating items
-    allBehaviours = []
-    behaviourEntries = {}
-    for listing in raw_data:
-        if listing['state'] not in allBehaviours:
-            allBehaviours.append(listing['state'])
-            # Add data to respective behaviour entry
-            behaviourEntries[listing['state']] = [listing]
-        else:
-            behaviourEntries[listing['state']].append(listing)
+    highestAccuracy = runBatch(raw_data)
 
-    # Removing behaviours only recorded once (Annisa's extras)
-    behaviours = []
-    for behaviour in allBehaviours:
-        entryCount = len(behaviourEntries[behaviour])
-        print(str(behaviour) + ": " + str(entryCount))
-        if entryCount > 1:
-            behaviours.append(behaviour)
 
-    behaviourPairs = list(combinations(behaviours,2))
-
-    # Finding entry pairs that have pre-found accuracies
-    try:
-        with open("pairClassificationAccuracies.txt", 'r') as resultsFile:
-            # Reading lines in as a list
-            entries = resultsFile.readlines()
-
-            # Getting the pairs by splitting up the string
-            preDonePairs = map(lambda s: s.split(": ")[0], entries)
-    except FileNotFoundError:
-        preDonePairs = []
-
-    for pair in behaviourPairs:
-        print(pair)
-        if str(pair) in preDonePairs:
-            print("Already done!")
-        else:
-            pairData = behaviourEntries[pair[0]] + behaviourEntries[pair[1]]
-            highestAccuracy = runBatch(pairData)
-
-            # Saving the pair's highest accuracy
-            with open("pairClassificationAccuracies.txt", 'a+') as resultsFile:
-                resultsFile.write(str(pair) + ': ' + str(highestAccuracy) + "%\n")
 
 ### TODO:
 # [x] Write a class to parse json data into sequences and one hot classes
