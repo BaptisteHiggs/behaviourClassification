@@ -167,7 +167,7 @@ class BathroomConfig(Config):
         # would be three channels.
     INPUT_FRAME_HEIGHT   = 8  ## (int)
     INPUT_FRAME_WIDTH    = 8  ## (int)
-    CLASS_COUNT          = 31  ## (int)
+    CLASS_COUNT          = 7  ## (int)
         # The number of "states".
 
     # Sequence Params
@@ -183,7 +183,7 @@ class BathroomConfig(Config):
     DENSE_NEURONS    = [256, 32]  ## (list)(int)
 
     # Training Hyperparams
-    EPOCHS     = 20    ## (int) >= 1
+    EPOCHS     = 40    ## (int) >= 1
     BATCH_SIZE = 32    ## (int) >= 1
     VAL_RATIO  = 0.15  ## (float) > 0.; < 1.
         # Percentage of dataset that is set aside for validation.
@@ -273,7 +273,7 @@ def runBatch(raw_data):
 
 if __name__ == '__main__':
     # Set file locations
-    JSON_PATH = 'behaviourData.json'
+    JSON_PATH = 'behaviourData_firstSet.json'
     MODEL_DIR = 'models'
 
     # Set config

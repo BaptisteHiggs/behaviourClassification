@@ -3,7 +3,7 @@
 # License: BSD 3 clause
 
 import matplotlib.pyplot as plt
-from sklearn import svm, metrics
+from sklearn import svm, metrics, neighbors
 import numpy as np
 import random
 
@@ -58,7 +58,8 @@ trainAmount = round(len(behaviours)*0.85)
 #import pdb; pdb.set_trace()
 
 # Create a classifier: a support vector classifier
-classifier = svm.SVC(gamma=10, degree=3, kernel='sigmoid', cache_size=2000, verbose=True)
+#classifier = svm.SVC(gamma=0.001, degree=3, kernel='rbf', cache_size=2000, verbose=True)
+classifier = neighbors.KNeighborsClassifier(n_neighbors=1000)
 print("Classifier created. Training...")
 
 # We learn the digits on the first half of the digits
@@ -73,7 +74,7 @@ print("Classification report for classifier %s:\n%s\n"
       % (classifier, metrics.classification_report(expected, predicted)))
 print("Confusion matrix:\n%s" % metrics.confusion_matrix(expected, predicted))
 confMatrix = metrics.confusion_matrix(expected, predicted)
-
+#import pdb; pdb.set_trace()
 for line in confMatrix:
     string = "["
     for x in line:
