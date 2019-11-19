@@ -198,3 +198,9 @@
 ('talk', 'read'): 83.74999761581421%
 ('talk', 'vandalise'): 88.02083134651184%
 ('talk', 'take_phone_call'): 52.08333134651184%
+('talk', 'drink_alcohol'): 87.5%
+('talk', 'hide'): 85.41666865348816%
+('talk', 'write_notes'): 97.39583134651184%
+('talk', 'have_solace'): 98.95833134651184%
+('talk', 'cover_seat_with_toilet_paper'): 76.2499988079071%
+('talk', 'squat_on_toilet'): 78.75000238418579%

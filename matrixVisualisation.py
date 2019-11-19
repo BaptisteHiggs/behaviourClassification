@@ -10,12 +10,13 @@ from confusionMatrices import *
 # Listing the matrices together
 SVMMatrices = [M_Poly_2, M_Poly_3, M_Poly_4, M_RBF_0001, M_RBF_01, M_RBF_10, M_Sigmoid_0001, M_Sigmoid_01, M_Sigmoid_10, M_Linear_0001, M_Linear_01, M_Linear_10]
 NNMatrices = [M_KNN1, M_KNN10, M_KNN100, M_KNN1000]
+LRMatrices = [M_LR_C0001, M_LR_C01, M_LR_C1, M_LR_C100]
 
 # Listing the behaviours in order
 behaviourOrder = ['adjust_jewelry_scarf', 'breast_feeding', 'change_clothes', 'change_diaper', 'change_pad_tampon', 'clean_glasses', 'cover_seat_with_toilet_paper', 'deal_drugs', 'defecate', 'drink_alcohol', 'eat_food', 'exercise', 'have_solace', 'hide', 'nap', 'put_in_take_out_contacts', 'read', 'smoke', 'spy', 'squat_on_toilet', 'take_medicine', 'take_phone_call', 'talk', 'urinate', 'use_drugs', 'vandalise', 'write_notes']
 
 # Looping through each of the matrices
-for matrix in NNMatrices:
+for matrix in LRMatrices:
     # Converting to a dataframe
     tempDF = pd.DataFrame(matrix)
 

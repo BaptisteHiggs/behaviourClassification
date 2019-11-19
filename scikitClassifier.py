@@ -1,9 +1,9 @@
 # Author of original code: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
-# Majorly modified by: Baptiste Higgs
+# Majorly(!) modified by: Baptiste Higgs
 # License: BSD 3 clause
 
 import matplotlib.pyplot as plt
-from sklearn import svm, metrics, neighbors
+from sklearn import svm, metrics, neighbors, linear_model
 import numpy as np
 import random
 
@@ -57,16 +57,15 @@ print("Loading data finished!")
 trainAmount = round(len(behaviours)*0.85)
 #import pdb; pdb.set_trace()
 
-# Create a classifier: a support vector classifier
+# Create the classifier
 #classifier = svm.SVC(gamma=0.001, degree=3, kernel='rbf', cache_size=2000, verbose=True)
-classifier = neighbors.KNeighborsClassifier(n_neighbors=1000)
+#classifier = neighbors.KNeighborsClassifier(n_neighbors=1000)
+classifier = linear_model.LogisticRegression(multi_class='multinomial', solver='lbfgs', C=10000)
 print("Classifier created. Training...")
 
-# We learn the digits on the first half of the digits
 classifier.fit(temps[:trainAmount], behaviours[:trainAmount])
 
 print("Predicting...")
-# Now predict the value of the digit on the second half:
 expected = behaviours[trainAmount:]
 predicted = classifier.predict(temps[trainAmount:])
 
